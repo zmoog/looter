@@ -15,9 +15,11 @@ import (
 	healthcheckextension "github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension"
 	pprofextension "github.com/open-telemetry/opentelemetry-collector-contrib/extension/pprofextension"
 	zpagesextension "go.opentelemetry.io/collector/extension/zpagesextension"
+	discordextension "github.com/zmoog/looter/extension/discordextension"
 	batchprocessor "go.opentelemetry.io/collector/processor/batchprocessor"
 	memorylimiterprocessor "go.opentelemetry.io/collector/processor/memorylimiterprocessor"
 	otlpreceiver "go.opentelemetry.io/collector/receiver/otlpreceiver"
+	discordreceiver "github.com/zmoog/looter/receiver/discordreceiver"
 )
 
 type aliasProvider interface{ DeprecatedAlias() component.Type }
@@ -44,6 +46,7 @@ func components() (otelcol.Factories, error) {
 		healthcheckextension.NewFactory(),
 		pprofextension.NewFactory(),
 		zpagesextension.NewFactory(),
+		discordextension.NewFactory(),
 	)
 	if err != nil {
 		return otelcol.Factories{}, err
@@ -52,16 +55,19 @@ func components() (otelcol.Factories, error) {
 		healthcheckextension.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension v0.153.0",
 		pprofextension.NewFactory().Type(): "github.com/open-telemetry/opentelemetry-collector-contrib/extension/pprofextension v0.153.0",
 		zpagesextension.NewFactory().Type(): "go.opentelemetry.io/collector/extension/zpagesextension v0.153.0",
+		discordextension.NewFactory().Type(): "github.com/zmoog/looter/extension/discordextension v0.0.0",
 	})
 
 	factories.Receivers, err = otelcol.MakeFactoryMap[receiver.Factory](
 		otlpreceiver.NewFactory(),
+		discordreceiver.NewFactory(),
 	)
 	if err != nil {
 		return otelcol.Factories{}, err
 	}
 	factories.ReceiverModules = makeModulesMap(factories.Receivers, map[component.Type]string{
 		otlpreceiver.NewFactory().Type(): "go.opentelemetry.io/collector/receiver/otlpreceiver v0.153.0",
+		discordreceiver.NewFactory().Type(): "github.com/zmoog/looter/receiver/discordreceiver v0.0.0",
 	})
 
 	factories.Exporters, err = otelcol.MakeFactoryMap[exporter.Factory](

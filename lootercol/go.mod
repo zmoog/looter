@@ -7,6 +7,8 @@ go 1.25.0
 require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension v0.153.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/extension/pprofextension v0.153.0
+	github.com/zmoog/looter/extension/discordextension v0.0.0
+	github.com/zmoog/looter/receiver/discordreceiver v0.0.0
 	go.opentelemetry.io/collector/component v1.59.0
 	go.opentelemetry.io/collector/confmap v1.59.0
 	go.opentelemetry.io/collector/confmap/provider/envprovider v1.59.0
@@ -32,6 +34,7 @@ require (
 require (
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
+	github.com/bwmarrin/discordgo v0.29.0 // indirect
 	github.com/cenkalti/backoff/v5 v5.0.3 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
@@ -47,6 +50,7 @@ require (
 	github.com/golang/snappy v1.0.0 // indirect
 	github.com/google/go-tpm v0.9.8 // indirect
 	github.com/google/uuid v1.6.0 // indirect
+	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.28.0 // indirect
 	github.com/hashicorp/go-version v1.9.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
@@ -174,3 +178,7 @@ require (
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+replace github.com/zmoog/looter/extension/discordextension v0.0.0 => ../extension/discordextension
+
+replace github.com/zmoog/looter/receiver/discordreceiver v0.0.0 => ../receiver/discordreceiver
