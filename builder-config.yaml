@@ -1,7 +1,8 @@
 dist:
   name: lootercol
   description: "Looter custom OpenTelemetry Collector distro"
-  output_path: ./dist
+  module: github.com/zmoog/looter/lootercol
+  output_path: ./lootercol
   otelcol_version: 0.153.0
 
 receivers:
