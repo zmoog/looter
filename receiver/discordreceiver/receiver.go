@@ -95,6 +95,7 @@ func messageCreateToLogs(botID string, e *discordgo.MessageCreate) plog.Logs {
 
 	lr := rl.ScopeLogs().AppendEmpty().LogRecords().AppendEmpty()
 	lr.SetTimestamp(pcommon.NewTimestampFromTime(e.Timestamp))
+	lr.SetObservedTimestamp(pcommon.NewTimestampFromTime(time.Now()))
 	lr.Body().SetStr(e.Content)
 	lr.SetSeverityNumber(plog.SeverityNumberInfo)
 
@@ -121,8 +122,10 @@ func messageReactionAddToLogs(botID string, e *discordgo.MessageReactionAdd) plo
 	rl.Resource().Attributes().PutStr("discord.bot_id", botID)
 	rl.Resource().Attributes().PutStr("service.name", "discordreceiver")
 
+	now := pcommon.NewTimestampFromTime(time.Now())
 	lr := rl.ScopeLogs().AppendEmpty().LogRecords().AppendEmpty()
-	lr.SetTimestamp(pcommon.NewTimestampFromTime(time.Now()))
+	lr.SetTimestamp(now)
+	lr.SetObservedTimestamp(now)
 	lr.Body().SetStr("")
 	lr.SetSeverityNumber(plog.SeverityNumberInfo)
 
